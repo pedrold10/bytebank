@@ -15,6 +15,10 @@ class ByteBankApp extends StatelessWidget{
   }
 }
 class FormularioTransferencia extends StatelessWidget{
+
+  final TextEditingController _controladorCampoNumeroConta = TextEditingController();
+  final TextEditingController _controladorCampoValor = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,6 +31,7 @@ class FormularioTransferencia extends StatelessWidget{
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: TextField(
+              controller: _controladorCampoNumeroConta,
               style: TextStyle(
                 fontSize: 24
               ),
@@ -36,11 +41,11 @@ class FormularioTransferencia extends StatelessWidget{
               ),
               keyboardType: TextInputType.number,
             ),
-
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: TextField(
+              controller: _controladorCampoValor,
                 style: TextStyle(
                     fontSize: 24
                 ),
@@ -52,7 +57,18 @@ class FormularioTransferencia extends StatelessWidget{
               keyboardType: TextInputType.number,
             ),
           ),
-          ElevatedButton(onPressed: onPressed, child: Text('Confirmar'))
+          ElevatedButton(
+            onPressed: () {
+              debugPrint('Clicou em confirmar');
+              final int? numeroConta = int.tryParse(_controladorCampoNumeroConta.text);
+              final double? valor = double.tryParse(_controladorCampoValor.text);
+              if(numeroConta != null && valor != null){
+                final transferenciaCriada = Transferencia(valor, numeroConta);
+                debugPrint('$transferenciaCriada');
+              }
+            },
+            child: Text('Confirmar'),
+          )
         ],
       ),
     );
@@ -100,9 +116,43 @@ class ItemTransferencia extends StatelessWidget{
   }
 }
 
+class Editor extends StatelessWidget {
+
+  final TextEditingController _controlador;
+  final String _rotulo;
+  final String _dica;
+
+  Editor(this._controlador, this._rotulo, this._dica);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: TextField(
+        controller: _controlador,
+        style: TextStyle(
+            fontSize: 24
+        ),
+        decoration: InputDecoration(
+            labelText: _rotulo,
+            hintText: _dica,
+        ),
+        keyboardType: TextInputType.number,
+      ),
+    );
+  }
+}
+
+
+
 class Transferencia {
   final double valor;
   final int numero_conta;
 
   Transferencia(this.valor, this.numero_conta);
+
+  @override
+  String toString() {
+    return 'Transferencia\n Valor: $valor\n Numero da conta: $numero_conta';
+  }
 }
