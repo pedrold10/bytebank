@@ -63,33 +63,48 @@ class FormularioTransferencia extends StatelessWidget{
 }
 
 
-class ListaTransferencias extends StatelessWidget {
+class ListaTransferencias extends StatefulWidget {
+
+  final List<Transferencia> _transferencias = [];
+
+  @override
+  State<StatefulWidget> createState(){
+    return ListaTransferenciasState();
+  }
+}
+
+class ListaTransferenciasState extends State<ListaTransferencias>{
   @override
   Widget build(BuildContext context) {
+    //widget._transferencias.add(Transferencia(110.0, 1000));
     return Scaffold(
       appBar: AppBar(
         title: Text('Transferências'),
         backgroundColor: Colors.pink,
       ),
-      body: Column(
-        children: [
-          ItemTransferencia(Transferencia(300, 1003)),
-          ItemTransferencia(Transferencia(200, 2000)),
-          ItemTransferencia(Transferencia(100, 3000)),
-        ],
+      body: ListView.builder(
+        itemCount: widget._transferencias.length,
+        itemBuilder: (context, indice){
+          final transferencia = widget._transferencias[indice];
+          return ItemTransferencia(transferencia);
+        },
+
       ),
       floatingActionButton: FloatingActionButton(
 
         child: Icon(Icons.add), backgroundColor: Colors.pink,
-          onPressed: () {
-            final Future future = Navigator.push(context, MaterialPageRoute(builder: (context){
-              return FormularioTransferencia();
-            }));
-            future.then((transferenciaRecebida){
-              debugPrint('$transferenciaRecebida');
-              debugPrint('Chegou no then do future');
-            });
-          },
+        onPressed: () {
+          final Future future = Navigator.push(context, MaterialPageRoute(builder: (context){
+            return FormularioTransferencia();
+          }));
+          future.then((transferenciaRecebida){
+            debugPrint('$transferenciaRecebida');
+            debugPrint('Chegou no then do future');
+            if(transferenciaRecebida!=null){
+              setState(()=>(widget._transferencias.add(transferenciaRecebida)));
+            }
+          });
+        },
       ),
     );
   }
