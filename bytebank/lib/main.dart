@@ -10,10 +10,10 @@ class ByteBankApp extends StatelessWidget{
     return
       MaterialApp(
         theme: ThemeData(
-          primaryColor: Colors.pink[400],
-          accentColor: Colors.pink[200],
+          primaryColor: Colors.pink[700],
+          accentColor: Colors.pink[500],
           buttonTheme: ButtonThemeData(
-            buttonColor: Colors.pink[200],
+            buttonColor: Colors.pink[500],
             textTheme: ButtonTextTheme.primary,
           ),
         ),
