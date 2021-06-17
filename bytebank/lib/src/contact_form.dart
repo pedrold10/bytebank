@@ -9,8 +9,8 @@ class ContactForm extends StatefulWidget {
 }
 
 class _ContactFormState extends State<ContactForm> {
-  final TextEditingController _nameController = TextEditingController();
 
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _accountNumberController = TextEditingController();
 
   @override
@@ -50,7 +50,7 @@ class _ContactFormState extends State<ContactForm> {
                       final String name = _nameController.text;
                       final int? accountNumber =
                         int.tryParse(_accountNumberController.text);
-                      final Contact newContact = Contact(0, name, accountNumber! );
+                      final Contact newContact = Contact(0, name, accountNumber!);
                       Navigator.pop(context, newContact);
                     },
                     child: Text('Create')),
