@@ -1,28 +1,25 @@
-import 'package:bytebank/database/app_database.dart';
+import 'package:bytebank/database/dao/contact_dao.dart';
 import 'package:bytebank/modelos/contact.dart';
 import 'package:flutter/material.dart';
-
 import 'contact_form.dart';
-
-class ContactsList extends StatelessWidget {
+class ContactsList extends StatefulWidget {
   //const ContactsList({Key? key}) : super(key: key);
   @override
+  _ContactsListState createState() => _ContactsListState();
+}
+class _ContactsListState extends State<ContactsList> {
+  final ContactDao _dao = ContactDao();
+  @override
   Widget build(BuildContext context) {
-    //contacts.add(Contact(0, 'Pedro', 1000));
-    //contacts.add(Contact(0, 'Pedro', 1000));
-    //contacts.add(Contact(0, 'Pedro', 1000));
-    //contacts.add(Contact(0, 'Pedro', 1000));
-    //contacts.add(Contact(0, 'Pedro', 1000));
-
     return Scaffold(
-      appBar: AppBar(
+    appBar: AppBar(
         title: Text('Contacts'),
       ),
       body: FutureBuilder<List<Contact>>(
         initialData: [],
-        future: findAll(),
-        builder: (context, snapshot){
-          switch(snapshot.connectionState){
+        future: _dao.findAll(),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
             case ConnectionState.none:
               break;
             case ConnectionState.waiting:
@@ -30,7 +27,7 @@ class ContactsList extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children:<Widget>[
+                  children: <Widget>[
                     CircularProgressIndicator(
                       color: Colors.pink[900],
                     ),
@@ -55,15 +52,11 @@ class ContactsList extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context)
-              .push(
-                MaterialPageRoute(
-                  builder: (context) => ContactForm(),
-                ),
-              )
-              .then(
-                (newContact) => debugPrint(newContact.toString()),
-              );
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => ContactForm(),
+            )
+          );
         },
         child: Icon(Icons.add),
         backgroundColor: Colors.pink[900],
@@ -71,13 +64,9 @@ class ContactsList extends StatelessWidget {
     );
   }
 }
-
 class _ContactItem extends StatelessWidget {
   final Contact contact;
-
   _ContactItem(this.contact);
-
-  // ignore: empty_constructor_bodies
   @override
   Widget build(BuildContext context) {
     return Card(

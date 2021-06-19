@@ -1,18 +1,10 @@
-import 'package:bytebank/database/app_database.dart';
-import 'package:bytebank/src/contact_form.dart';
-import 'package:bytebank/src/contacts_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'modelos/contact.dart';
 import 'src/dashboard.dart';
-
 void main() {
   runApp(MyApp());
 }
-
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
