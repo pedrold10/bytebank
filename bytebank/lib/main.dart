@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'http/client.dart';
 import 'src/dashboard.dart';
 void main() {
   runApp(MyApp());
+  findAll();
 }
 class MyApp extends StatelessWidget {
   @override
