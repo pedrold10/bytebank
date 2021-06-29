@@ -5,11 +5,11 @@ import 'modelos/contact.dart';
 import 'modelos/transaction.dart';
 import 'src/dashboard.dart';
 void main() {
-  runApp(MyApp());
+  runApp(BytebankApp());
   save(Transaction(200.0, Contact(0, 'Carlos', 2000))).then((transaction)=>print(transaction));
   //findAll().then((transactions)=>print('new transactions ${transactions}'));
 }
-class MyApp extends StatelessWidget {
+class BytebankApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
